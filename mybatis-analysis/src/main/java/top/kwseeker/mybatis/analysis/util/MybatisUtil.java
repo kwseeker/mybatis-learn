@@ -11,7 +11,7 @@ import java.io.InputStream;
 public class MybatisUtil {
 
     public static SqlSessionFactory getSqlSessionFactory(String xmlPath) {
-//        String resource = "resources/mybatis-config.xml";
+        //String resource = "resources/mybatis-config.xml";
         SqlSessionFactory sqlSessionFactory = null;
         try {
             InputStream inputStream = Resources.getResourceAsStream(xmlPath);
