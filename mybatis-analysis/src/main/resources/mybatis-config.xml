@@ -7,11 +7,11 @@
     <!--<properties resource="config.properties"/>-->
     <properties>
         <property name="db.driver" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="db.url" value="jdbc:mysql://127.0.0.1:3306/mybatis_learn?characterEncoding=utf8&amp;useSSL=true&amp;serverTimezone=UTC"/>
+        <property name="db.url" value="jdbc:mysql://127.0.0.1:3306/mybatis_learn?characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=UTC"/>
         <property name="db.username" value="root"/>
         <property name="db.password" value="123456"/>
         <property name="db1.driver" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="db1.url" value="jdbc:mysql://127.0.0.1:3307/mybatis_learn?characterEncoding=utf8&amp;useSSL=true&amp;serverTimezone=UTC"/>
+        <property name="db1.url" value="jdbc:mysql://127.0.0.1:3307/mybatis_learn?characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=UTC"/>
         <property name="db1.username" value="root"/>
         <property name="db1.password" value="123456"/>
     </properties>
