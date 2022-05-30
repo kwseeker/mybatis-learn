@@ -1,9 +1,7 @@
 package top.kwseeker.mybatis.analysis.proxy;
 
-import org.junit.Assert;
 import org.junit.Test;
 import top.kwseeker.mybatis.analysis.dao.BlogMapper;
-import top.kwseeker.mybatis.analysis.domain.Blog;
 
 import java.lang.reflect.*;
 
@@ -24,20 +22,18 @@ public class MapperMethodExecTest {
         Method method = mapperInterface.getMethod("selectBlog", int.class);
         Type srcType = mapperInterface;
 
-        Type returnType = method.getGenericReturnType();
-        Class<?> declaringClass = method.getDeclaringClass();
+        Type returnType = method.getGenericReturnType();        //获取返回值的泛型类型，BlogMapper$selectBlog 返回 Blog.class
+        Class<?> declaringClass = method.getDeclaringClass();   //方法定义类，即BlogMapper.class
 
         Type resolvedType;
-        if (returnType instanceof TypeVariable) {
-
-        } else if (returnType instanceof ParameterizedType) {
-
-        } else if (returnType instanceof GenericArrayType) {
-
+        if (returnType instanceof TypeVariable) {   //泛型类型变量
+            System.out.println(returnType);
+        } else if (returnType instanceof ParameterizedType) {   //泛型参数化类型
+            System.out.println(returnType);
+        } else if (returnType instanceof GenericArrayType) {    //泛型数组类型
+            System.out.println(returnType);
         } else {
             resolvedType = returnType;
         }
-
-        Assert.assertEquals(resolvedType, Blog.class);
     }
 }
