@@ -78,7 +78,7 @@ AutoConfigurationImportSelector.class 初始化
 + selectImports()
 
 + getAutoConfigurationEntry()
-    
+  
     加断点先进入到这个方法
     
     ```
@@ -132,7 +132,8 @@ AutoConfigurationImportSelector.class 初始化
     - getCandidateConfigurations()
        
        获取所有包 META-INF/spring.factories 中的自动配置类。
-
+```
+  
 + fireAutoConfigurationImportEvents
 
     ？？？

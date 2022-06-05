@@ -32,5 +32,7 @@ public class BlogServiceImplTest {
         Blog blog = blogMapper.selectBlog(1);
         System.out.println("Query Result: " + blog.toString());
         Assert.assertEquals("kwseeker", blog.getNickname());
+        Blog blog2 = blogMapper.selectBlog(1);
+
     }
 }
