@@ -12,6 +12,7 @@
     <modules>
         <module>mybatis-analysis</module>
         <module>mybatis-usage</module>
+        <module>mybatis-boot</module>
     </modules>
     <name>mybatis-learn</name>
 
