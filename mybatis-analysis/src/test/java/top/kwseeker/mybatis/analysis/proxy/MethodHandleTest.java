@@ -19,7 +19,8 @@ public class MethodHandleTest {
     public void testMapperProxyUseMethodHandle() throws Exception {
         Class<BlogMapper> mapperInterface = BlogMapper.class;
 
-        BlogMapper blogMapperProxy = (BlogMapper) Proxy.newProxyInstance(mapperInterface.getClassLoader(),
+        BlogMapper blogMapperProxy = (BlogMapper) Proxy.newProxyInstance(
+                mapperInterface.getClassLoader(),
                 new Class[] { mapperInterface }, new MapperProxy());
 
         Blog blog = blogMapperProxy.selectBlog(1);
