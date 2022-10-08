@@ -11,21 +11,91 @@
 工作原理看根目录下流程图就够了；效果比之前写几百字的总结效果还好。
 
 Mybatis一共有两级缓存：
-+ **一级缓存**（会话缓存/本地缓存）
++ **一级缓存**（会话缓存/本地缓存，同一个SqlSession共享）
 
   默认开启；
 
-  实现类：PerpetualCache（就一个HashMap，甚至连Cache接口的读写锁都没有实现）；
+  + **实现类**
 
-  > Perpetual: 永久的、长期的
+    PerpetualCache（就一个HashMap，甚至连Cache接口的读写锁都没有实现）；
+
+    > Perpetual: 永久的、长期的
+
+  + **如何理解一级缓存是同一个SqlSession共享的？**
+
+    
+
+  + **关闭方法**
+
+    修改localCacheScope为STATEMENT，并不是禁用一级缓存，而是每次查询都会清除本地缓存，相当于没有使用一级缓存。
+
+    | 设置名          | 描述                                                         | 有效值               | 默认值  |
+    | :-------------- | :----------------------------------------------------------- | :------------------- | :------ |
+    | localCacheScope | MyBatis 利用本地缓存机制（Local Cache）防止循环引用和加速重复的嵌套查询。 默认值为 SESSION，会缓存一个会话中执行的所有查询。 若设置值为 STATEMENT，本地缓存将仅用于执行语句，对相同 SqlSession 的不同查询将不会进行缓存。 | SESSION \| STATEMENT | SESSION |
+
+    ```xml
+    <configuration> 
+    	<settings>
+            <!-- 设置一级缓存为STATEMENT级别 -->
+            <setting name="localCacheScope" value="STATEMENT"/>
+        </settings>
+    </configuration>
+    <!-- 原理是：BaseExecutor 判断一级缓存作用范围是 LocalCacheScope.STATEMENT 的话，会执行清除操作
+    	if (configuration.getLocalCacheScope() == LocalCacheScope.STATEMENT) {        
+            clearLocalCache();
+        }
+     -->
+    ```
 
 + **二级缓存**（全局缓存，同一个namespace共享）
 
-  默认关闭，基本不会使用，因为现在的服务都是分布式多节点的，二级缓存并不能被多个节点共享，使用的话还会带来数据不一致的问题。
+  二级缓存是事务性的。这意味着，当 SqlSession 完成并提交时，或是完成并回滚，但没有执行 flushCache=true 的 insert/delete/update 语句时，缓存会获得更新（即除了更删改外事务操作也可能更新二级缓存）。
 
+  默认关闭，基本不会使用。
   
+  + **如何理解二级缓存是同一个namespace共享的？**
+  
+    命名空间（namespace）的作用有两个，一个是利用更长的全限定名来将不同的语句隔离开来，同时也实现了你上面见到的接口绑定。
+  
+    ```xml
+    <mapper namespace="top.kwseeker.mybatis.analysis.dao.BlogMapper">
+    ```
+  
+    
+  
+  + **开启方法**
+  
+    要启用全局的二级缓存，只需要在你的 **SQL 映射文件**中添加一行。但是测试发现没有这么简单，还需要结果集对象实现序列化接口（Serializable），并在查询完毕之后执行`sqlSession.commit();`参考后面一节。
+  
+    ```xml
+    <mapper namespace="top.kwseeker.mybatis.analysis.dao.BlogMapper">
+    	<cache/>
+    </mapper>
+    ```
+  
+  + **二级缓存失效**
+  
+    参考Demo LocalCacheTest$testCache(), 发现只是配置 `<cache/>`，多次查询二级缓存始终返回为null; 
+  
+    需要修改结果集对象实现序列化接口（Serializable），并在查询完毕之后执行`sqlSession.commit();`
+  
+    ```
+    public class Blog implements Serializable {
+    }
+    
+    System.out.println(">>>>>>> Query Result: " + blogMapper.selectBlog(1).toString());
+    sqlSession.commit();    //这里需要commit，然后才会真正缓存到二级缓存
+    ```
+  
+    
 
-### 源码流程
+> 注意：Mybatis自带的两级缓存都属于分布式节点的“本地缓存”，在分布式场景下都不可以被多节点共享，都可能存在读取到脏数据的问题。
+
+
+
+## 源码流程 （废弃）
+
+下面内容已废弃，源码流程参考流程图。
 
 工作原理介绍参考 MyBatis知识点总结.md;
 

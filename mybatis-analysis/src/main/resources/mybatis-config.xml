@@ -16,11 +16,13 @@
         <property name="db1.password" value="123456"/>
     </properties>
 
-    <!--<settings>-->
+    <settings>
         <!--日志jar引入后mybatis会自动识别到-->
-        <!--&lt;!&ndash;配置Mybatis日志&ndash;&gt;-->
-        <!--&lt;!&ndash;<setting name="logImpl" value="LOG4J"/>&ndash;&gt;-->
-    <!--</settings>-->
+        <!--配置Mybatis日志-->
+        <setting name="logImpl" value="LOG4J2"/>
+        <!-- 设置一级缓存为STATEMENT级别 -->
+        <setting name="localCacheScope" value="STATEMENT"/>
+    </settings>
 
     <!-- 配置类型别名 -->
     <typeAliases>

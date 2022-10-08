@@ -5,6 +5,7 @@
 <mapper namespace="top.kwseeker.mybatis.analysis.dao.BlogMapper">
     <!-- 开启全局的二级缓存（namespace共享） -->
     <cache/>
+
     <resultMap id="blogResultMap" type="top.kwseeker.mybatis.analysis.domain.Blog">
         <id property="id" column="user_id" />
         <result property="title" column="title"/>
@@ -20,4 +21,8 @@
     <select id="selectBlog" parameterType="int" resultMap="blogResultMap">
         select * from t_blog where id = #{id}
     </select>
+
+    <update id="updateBlog">
+        update t_blog set nickname = #{nickname} where id = #{id}
+    </update>
 </mapper>
