@@ -13,9 +13,11 @@ public class LoginService {
     private UserService userService;
 
     public void login() {
-        long spaceId = 111;
+        long spaceId = 112;
         long userId = 222;
         UserEntity userEntity = userService.getUserFromDb(spaceId, userId);
+        UserEntity userEntity2 = userService.getUserByPairId(spaceId, userId);
         System.out.println(userEntity.toString());
+        System.out.println(userEntity2.toString());
     }
 }

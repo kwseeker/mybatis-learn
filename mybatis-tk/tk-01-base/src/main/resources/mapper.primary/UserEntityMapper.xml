@@ -23,4 +23,7 @@
         WHERE love_space_id = #{userEntity.loveSpaceId}
             and user_Id =  #{userEntity.userId}
     </update>
+    <select id="selectByPairId" resultMap="BaseResultMap">
+        SELECT * FROM user WHERE love_space_id = #{spaceId} AND user_Id = #{userId}
+    </select>
 </mapper>

@@ -19,5 +19,9 @@ public class UserService {
         entity = userEntityMapper.selectOne(entity);
         return entity;
     }
+
+    public UserEntity getUserByPairId(Long spaceId, Long userId) {
+        return userEntityMapper.selectByPairId(spaceId, userId);
+    }
 }
 

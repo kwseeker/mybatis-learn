@@ -23,8 +23,7 @@ spring:
 
 logging:
   level:
-    cn.jay.repository: trace
-#    org.springframework: debug
+    top.kwseeker.mybatis.tk: debug
 
 #mybatis:
 #  mapper-locations: classpath*:mapper/primary/*.xml
