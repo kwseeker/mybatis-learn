@@ -26,4 +26,7 @@
     <select id="selectByPairId" resultMap="BaseResultMap">
         SELECT * FROM user WHERE love_space_id = #{spaceId} AND user_Id = #{userId}
     </select>
+    <update id="updateNickName">
+        update user set nick_name = #{nickname} where love_space_id = #{spaceId} AND user_Id = #{userId}
+    </update>
 </mapper>

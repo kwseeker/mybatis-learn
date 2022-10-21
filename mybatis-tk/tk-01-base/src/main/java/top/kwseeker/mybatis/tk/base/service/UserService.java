@@ -20,6 +20,10 @@ public class UserService {
         return entity;
     }
 
+    public void updateNickname(Long spaceId, Long userId, String nickname) {
+        userEntityMapper.updateNickName(spaceId, userId, nickname);
+    }
+
     public UserEntity getUserByPairId(Long spaceId, Long userId) {
         return userEntityMapper.selectByPairId(spaceId, userId);
     }
