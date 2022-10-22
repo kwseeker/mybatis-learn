@@ -53,11 +53,9 @@ public class PrimaryDataSourceConfig {
         ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
         List<String> mapperLocations = new ArrayList<>();
         mapperLocations.add("classpath*:mapper/primary/*.xml");
-        //mapperLocations.add("classpath*:/*Mapper*.xml");
         List<Resource> resources = new ArrayList<>();
         if (mapperLocations.size() > 0) {
             for (String mapperLocation : mapperLocations) {
-                //TODO 资源为何加载失败
                 Resource[] mappers = resourceResolver.getResources(mapperLocation);
                 resources.addAll(Arrays.asList(mappers));
             }
