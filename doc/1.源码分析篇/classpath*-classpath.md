@@ -1,5 +1,7 @@
 # classpath* 与 classpath 的区别
 
+测试Demo: tk-01-biz.CommandLineInitializer。
+
 比如下面两个路径的区别：
 
 ```
